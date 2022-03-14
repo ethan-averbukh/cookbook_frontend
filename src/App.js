@@ -1,11 +1,12 @@
 import React from "react";
+import {Routes, Route} from 'react-router-dom';
 import axios from "axios";
 import { useState } from "react";
 import "./App.css";
-import Submit from "./Submit.js";
+import HomePage from "./HomePage";
+import Submit from "./Submit";
 function App() {
   const [author, setAuthor] = useState([]);
-  const [modalOpen, setModalOpen] = useState(false);
 
   const handleGETCall = async () => {
     const response = await axios.get("http://localhost:3000/api/authors");
@@ -50,38 +51,13 @@ function App() {
      }
      handleGETCall();
   }
-  const authorData = author.map((item, index) => {
-    const cookbook = item.cookbooks.map((item, index) => {
-      return (
-        <div key={index}>
-          <div>{item.title}</div>
-          <div>{item.yearPublished}</div>
-        </div>
-      );
-    });
-    return (
-      <div className="authors" key={index}>
-        <section className="authors-name">
-        <div className="authors-first">{item.firstName}</div>
-        <div className="authors-last">{item.lastName}</div>
-        </section>
-        <section className="authors-cookbook">
-          {cookbook}
-        </section>
-        <button onClick={() => handlePUTCall(item)}>Edit</button>
-        <button onClick={()=> handleDELETECall(item)}>Delete Author</button>
-      </div>
-    );
-  });
+
 
   return (
-    <div className="App">
-      <button className="author-btn" onClick={handleGETCall}>
-        Request Authors List
-      </button>
-      <Submit handlePOSTSubmits={handlePOSTCall}></Submit>
-      <div className="authors-container">{authorData}</div>
-    </div>
+    <Routes>
+      <Route path='/' element={<HomePage GETApiCall={handleGETCall} POSTApiCall={handlePOSTCall} PUTApiCall={handlePUTCall} DELETEApiCall={handleDELETECall} apiData={author}/>}></Route>
+      <Route path='/submit' element={<Submit handlePOSTSubmits={handlePOSTCall}/>}></Route>
+    </Routes>
   );
 }
 
