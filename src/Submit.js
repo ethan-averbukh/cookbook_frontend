@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router";
 
 const Submit = ({ handlePOSTSubmits }) => {
  
@@ -24,12 +25,15 @@ const Submit = ({ handlePOSTSubmits }) => {
     }
   }
 
+  let navigate = useNavigate();
   const handleSubmit = (e) => {
       e.preventDefault();
     if(e.target.value === 'Submit Author'){
       handlePOSTSubmits(author, cookbook);
+      navigate('/')
     } else {
       handlePOSTSubmits({}, cookbook);
+      navigate('/')
     }
   };
 
