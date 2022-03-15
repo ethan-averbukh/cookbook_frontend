@@ -9,14 +9,14 @@ function App() {
   const [author, setAuthor] = useState([]);
 
   const handleGETCall = async () => {
-    const response = await axios.get("http://localhost:3000/api/authors");
+    const response = await axios.get(" https://protected-atoll-73494.herokuapp.com/api/authors");
     const apiData = await response.data.data;
     setAuthor(apiData);
   };
 
   const handlePOSTCall = async (authorInput, cookbookInput) => {
     try {
-      const response = await axios.post("http://localhost:3000/api/authors", {
+      const response = await axios.post(" https://protected-atoll-73494.herokuapp.com/api/authors", {
         firstName: authorInput.firstName,
         lastName: authorInput.lastName,
         title: cookbookInput.title,
@@ -32,7 +32,7 @@ function App() {
     console.log(authorInput);
     try {
       const response = await axios.put(
-        `http://localhost:3000/api/authors/${authorInput._id}`,
+        ` https://protected-atoll-73494.herokuapp.com/api/authors/${authorInput._id}`,
         {
           firstName: authorInput.firstName,
           lastName: authorInput.lastName,
@@ -45,7 +45,7 @@ function App() {
   };
   const handleDELETECall = async (authorInput) => {
      try {
-      const response = await axios.delete(`http://localhost:3000/api/authors/remove/${authorInput._id}`)
+      const response = await axios.delete(` https://protected-atoll-73494.herokuapp.com/api/authors/remove/${authorInput._id}`)
      } catch (err) {
        console.log(err)
      }
